@@ -3,7 +3,7 @@
 // Chris Szalwinski
 // 2019/01/23
 
-#include <fstream> 
+#include <fstream>
 #include <iostream>
 #include <iomanip>
 #include <string>
@@ -44,7 +44,7 @@ int main(int argc, char* argv[]) {
 			// TODO: create a temporary SummableLVPair from ticketType and number
 			// add the tempoary object to the references list
 			//
-			references += 
+			references +=
 		}
 	} while (index);
 	index.clear();
@@ -63,7 +63,6 @@ int main(int argc, char* argv[]) {
 	// each LVPair consists of a label of type std::string and a value of type int
 	// the maximum number of elements in the list is 50
 	//
-	LVList<SummableLVPair<std::string, int>, std::string, int, 50> ticketSales;
 	std::ifstream sales(argv[2]);
 	if (!sales) {
 		std::cerr << "*** failed to open sales file ***\n";
@@ -79,7 +78,7 @@ int main(int argc, char* argv[]) {
 			// TODO: create a temporary SummableLVPair from ticketType and number
 			// add the tempoary object to the ticketSales list
 			//
-			ticketSales += 
+			ticketSales +=
 		}
 	} while (sales);
 	sales.clear();
