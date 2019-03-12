@@ -44,6 +44,7 @@ int main(int argc, char* argv[]) {
 	}
 	file.clear();
 	Message** message = new Message*[max_msgs];
+    
 	file.seekg(0);
 	int no_msgs{ 0 };
 	while (file) {

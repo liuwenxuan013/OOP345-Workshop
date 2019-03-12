@@ -1,0 +1,23 @@
+// Workshop  - Template
+// Wenxuan Liu
+// 160678173
+
+
+
+1. The reason for specializing the sum() member function:
+    Because the logic of addition of numbers and strings are different. The logic for adding strings is to concatenate sting instead of adding values.
+
+ 
+2. The reason for specializing the initial value for a summation.   
+    Because we initialize int and string in different way. For example: 
+	template<>
+	int SummableLVPair<std::string, int>::dValue = 0;
+
+	template<>
+	std::string SummableLVPair<std::string, std::string>::dValue = "\0";
+
+3. The reason for defining the class variable outside the class definition.
+      We need to define the class variable outside the class template for some special case whose logic does not fit this class template rule.
+    
+
+

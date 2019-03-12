@@ -1,0 +1,16 @@
+Wenxuan Liu
+160678173
+
+1.Copy operation allocates memory for the left operands, and it will not change the right operands;
+Move operation is shadow copying which does not allocate new memory for left operands, and it will remove the original values
+
+2.Move operation remove value and memory from the original object, give the values and the address of those memory to the new object instead. For example, Text d=std::move(a); This execution will  remove the memory and instance variable's values from object a, and give the value and address of memory to the new object d.
+
+3.I add move constructor and move assignment operator in Text module and add these move operation function call in w2 module to upgrade my code.
+
+To compare the time duration of different constructor and assignment execution, move operation is more efficient than copy operation.
+
+
+Quiz  reflection
+
+I got full mark for the last quiz.

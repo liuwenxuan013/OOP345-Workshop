@@ -1,0 +1,27 @@
+WS01 Reflect
+
+Student ID:	160678173
+
+Name:		Wenxuan Liu
+
+Email:		wliu122@myseneca.ca
+
+Date:		2019/01/17
+
+1.the difference between internal and external linkage using examples from your code
+
+	internal linkage refers to an entity which could be a variable and can not be accessed by any other files or functions in translation units different from which defined the static entity or variable. For example, I defined a variable num being modified by 'static' out of all the functions of String module. Therefore, num can only be accessed by all the functions in the same translation unit which it was defined. It(num) was used in function display() of String module in my code.
+
+	external linkage refers to an entity which could be a variable and can be accessed in different translation unit besides the translation unit where it is defined.For example,I defined a variable INITIAL out of all the functions of w1 module. I also declare the variable INITIAL in module String by extern keyword which makes variable INITIAL global so that it can be accessed in String module which is another translation unit.
+
+
+
+2.the execution effect of the code in the process() function that creates the String object 	which is inserted into standard output (which member function(s) does this code call)
+	the code execution called the one argument constructor of class String to create a temporary object, then assign this temporary object to a new defined String instance or object a, and print it through accessing the region of memory of it.
+
+
+
+3.the changes that you made in upgrading your String class.
+	To receive and print a C-style null terminated string of any length, the changes in my code is using dynamic memory allocation to receive and store a string when it is valid. The The new memory size is determined by the length of the parameter string plus one more character terminated bit.
+
+	

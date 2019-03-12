@@ -1,0 +1,103 @@
+// Workshop4
+// Wenxuan Liu
+// 160678173
+
+
+
+1. The difference between the implementations of a composition and an aggregation.
+	Composition: If we new or destruct a composer object, we also new or destruct a component object because the relationship between components and composer is that component objects exist depending on composer objects in the composer class or structure.For instance,Message objects as component object and MessagePack as it’s composer objects, each MessagePack object are composed by several Message objects, if we new a MessagePack, we also new Message objects, so does destruction. MessagePack manages the create and destroy of the Message.
+   Destruction:
+	~MessagePack(){
+        for(size_t i=0; i<count;i++)
+        delete msg[i];
+        delete msg;
+    }
+
+	Construction:
+	MessagePack(Message** m,size_t n){
+        if(n>0&&m!=nullptr){
+            msg = new Message* [n];
+            for(size_t i=0u;i<n;i++){
+                if(!m[i]->empty()){
+                    msg[count]=new Message(*m[i]);
+                    count++;}
+            }
+        }
+        else *this=MessagePack();
+    }
+
+
+
+
+	Aggregation: If we new or destruct a aggregator, we only new or destroy the pointer pointing to the object that it uses.therefore, the aggregator do not manage the objects’s creation and destruction.For instance,Notification objects as aggregators are not responsible for the creation and destruction of the Message objects. It only manage the pointers pointing to those Message objects.
+ 	Destruction:
+	~Notifications(){
+        delete [] mp;
+    }
+
+	Construction:
+	Notifications(int mx){
+        if(mx>0){
+               mp=new const Message*[mx];
+               max=mx;
+        }
+        else *this=Notifications();
+    }
+
+
+2.the difference between the implementations of move and copy functions in a composition and an aggregation
+	Move function: 
+(1)In composition, to move the composer objects only should copy the component objects’ address and release the original pointer pointing to the component objects. for instance, to move a MessagePack object, I only copy the address of  Message to the current object’s Message pointer member variable msg. For instance:
+	MessagePack& MessagePack::operator=(MessagePack&& mpk){
+        if(this!=&mpk){
+            delete msg;
+            count=mpk.count; mpk.count=0;
+            msg=mpk.msg;     mpk.msg=nullptr;
+        }
+        return *this;
+    }  
+(2)In aggregation, to move the aggregator objects is similar as to move a composition object. It should copy the aggregator objects’ address and release the original pointer pointing to the objects that it uses.For instance , to move a Notification object, I copy the address of Message member variable to the current object’s instance variables mp which points the address of the Message:
+
+	  Notifications& Notifications::operator=(Notifications&& noti){
+        if(this!=&noti){
+            delete [] mp;
+            max=noti.max; noti.max=0;
+            num=noti.num; noti.num=0;
+            mp=noti.mp;   noti.mp=nullptr;
+        }
+        return *this;
+    }
+	
+	Copy function:
+(1)In composition, to copy the composer objects should copy the component objects’ value but its address, for instance, to copy a MessagePack object, I copy each Message object to the current MessagePack object. For instance:
+  MessagePack& MessagePack::operator=(const MessagePack& mpk){
+        if(this!=&mpk){
+           for(size_t i=0;i<count;i++)
+                delete msg[i];
+                delete msg;
+                count=mpk.count;
+                msg=new Message* [count];
+                for(size_t i=0;i<count;i++)
+                    msg[i]=new Message(*(mpk.msg[i]));
+        }
+        return *this;
+    }
+
+(2)In aggregation, to copy the aggregator objects should copy the aggregator objects’ address.For instance , to copy a Notification object, I copy the Notifications object noti’s instance variables max, num and the address of the Message objects :
+	Notifications& Notifications::operator=(const Notifications& noti){
+        if(this!=&noti){
+            delete mp;
+            max=noti.max;
+            num=noti.num;
+            mp=new const Message* [max];
+            for(size_t i=0;i<max;i++){
+                mp[i]=noti.mp[i];
+            }
+        }
+        return *this;
+    }
+
+    
+Quiz:
+I got full mark in last quiz.
+

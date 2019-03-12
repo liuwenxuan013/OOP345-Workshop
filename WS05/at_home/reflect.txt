@@ -1,0 +1,61 @@
+
+// Workshop 5 
+// Wenxuan Liu
+// 160678173
+// 2019/02/15
+
+1.The difference between the implementations of a functor and a lambda expression.
+
+	Functor can store a state, and can be a parameter called by other calling function which include a template(function) type parameter, functor only can change the non-local variable state indirectly by changing the state of functor. For example:
+       priceList.display(std::cout, Taxable(HST));
+		void display(std::ostream&os,F f)const{
+            os << std::left << std::setw(fieldWidth) << k <<" : "
+            << std::right << std::setw(fieldWidth) << v <<  std::setw(fieldWidth)
+            <<f(v)<<std::endl;
+        }
+Changing the result of output by changing the functor state through giving different parameter to its constructor;
+
+
+	Lambda expression as a parameter can directly access and change the non-local variable although the Lambda expression without parameters.  For example:
+	int k=0;
+     add(10, [&](){ return k++; }) 
+
+
+2.A list of the exceptions that you have reported and the cases where you terminated 
+	execution normally.
+
+void exit_1(){
+    std::cout <<"Loading file failed..."<<std::endl;
+}
+void exit_2(){
+    std::cout <<"Lose files"<<std::endl;
+}
+void exit_3(){
+    std::cout <<"More files"<<std::endl;
+}
+
+template <typename L, typename T, typename K, typename V>
+L createList(char* filename) {
+    std::ifstream file(filename);
+    
+    if (!file) {
+               atexit(exit_1);
+        exit(1);
+... ...
+}
+
+int main(int argc, char* argv[]) {
+  ... ...
+    std::cout << std::endl;
+            if (argc < 3){
+               atexit(exit_2);
+            exit(2);}
+        if(argc >3){
+               atexit(exit_3);
+            exit(3);}
+   
+    ... ... }
+
+Quiz:
+
+I got full mark for last quiz.
