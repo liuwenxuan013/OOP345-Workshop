@@ -7,8 +7,9 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include "DataTable.h"
-#include "DataTable.h" // this is intentional
+#include "DataTable.hpp"
+#include "DataTable.hpp" // this is intentional
+//using namespace sict;
 using namespace std;
 int FW = 8; // field width
 int ND = 4; // precision for numbers
