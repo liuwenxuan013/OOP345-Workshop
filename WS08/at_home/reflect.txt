@@ -1,0 +1,41 @@
+//  ws08
+//
+//  Created by Liu Wenxuan on 2019-03-26.
+//  Copyright © 2019 Liu Wenxuan. All rights reserved.
+//
+
+
+The advantage that smart pointer syntax provides
+List the difference between raw and smart pointer syntax in your solution
+
+Using smart pointer does not need to deallocate the memory because it would be deallocated  as long as the smart pointer goes out of its scope.
+
+The difference between raw and smart pointer syntax in my solution:
+
+in the mergeRaw function, I use the raw pointer and I need to delete the memory as below:
+List<Product> mergeRaw(const List<Description>& desc, const List<Price>& price) {
+		List<Product> priceList;
+        for (std::size_t i = 0; i < desc.size(); i++) {
+            for (std::size_t j = 0; j < price.size(); j++) {
+                if (desc[i].proCode == price[j].proCode) {
+                    Product* p = new Product(desc[i].desc, price[j].proPrice);
+                    p->validate();
+                    priceList += p;
+                    delete p;
+                }
+                
+            }
+        }
+However, in mergeSmart function, I use the smart pointer and do not need to dealocate memory.
+List<Product> mergeSmart(const List<Description>& desc, const List<Price>& price) {
+		List<Product> priceList;
+        for(std::size_t i=0; i<desc.size(); i++)
+            for (std::size_t j = 0; j < price.size(); j++) {
+                if (desc[i].proCode == price[j].proCode) {
+                    std::unique_ptr<Product> p(new Product(desc[i].desc, price[j].proPrice));
+                    p->validate();
+                    priceList += p;
+                }
+            }
+		return priceList;
+	}
